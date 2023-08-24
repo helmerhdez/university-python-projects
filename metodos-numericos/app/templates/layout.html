@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Flask App</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('main_routes.index') }}">Home</a></li>
+            <li><a href="{{ url_for('main_routes.about') }}">About</a></li>
+        </ul>
+    </nav>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
