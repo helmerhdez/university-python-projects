@@ -5,9 +5,6 @@ def create_app():
 
     # Configuraciones
     app.config['SECRET_KEY'] = 'mysecretkey'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydatabase.db'
-
-    # Inicialización de extensiones (si estás usando alguna)
 
     # Importa rutas y registra blueprints
     from .routes import main_routes
