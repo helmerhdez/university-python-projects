@@ -21,7 +21,7 @@ Antes de comenzar con este proyecto, asegúrate de tener lo siguiente instalado 
     ```sh
     git clone https://github.com/helmerhdez/university-python-projects.git
     
-    cd proyecto
+    cd metodos-numericos
     ```
 
 2. **Crea un Entorno Virtual:** Crea y activa un entorno virtual para aislar las dependencias del proyecto:
