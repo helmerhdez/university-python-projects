@@ -21,6 +21,8 @@ Antes de comenzar con este proyecto, asegúrate de tener lo siguiente instalado 
     ```sh
     git clone https://github.com/helmerhdez/university-python-projects.git
     
+    cd university-python-projects
+
     cd metodos-numericos
     ```
 
