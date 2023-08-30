@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for
 from flask import request
-from app.functions.solved_linear_equations import solved_linear_equation
+from app.functions.solve_equations import solve_equation
 
 main_routes = Blueprint('main_routes', __name__)
 
@@ -18,6 +18,6 @@ def about():
 
 @main_routes.route('/nonlinear_equation', methods=['POST'])
 def nonlinear_equations():
-    result = solved_linear_equation(request.form)
+    result = solve_equation(request.form)
     return render_template('nonlinear_equation.html', result=result)
 
