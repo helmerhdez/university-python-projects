@@ -1,10 +1,11 @@
 def false_rule_method(func, a, b, tol):
     if func(a) * func(b) >= 0:
+        print("The function does not have a root in the interval")
         return None
 
     iter_count = 0
     while (b - a) / 2 > tol:
-        c = a + (b - a) * func(b) / (func(b) - func(a))
+        c = a - func(a) * (b - a) / (func(b) - func(a))
         if func(c) == 0:
             break
         elif func(c) * func(a) < 0:
@@ -13,4 +14,4 @@ def false_rule_method(func, a, b, tol):
             a = c
         iter_count += 1
 
-    return (a + b) / 2, iter_count
+    return c, iter_count
