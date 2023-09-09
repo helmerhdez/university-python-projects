@@ -21,6 +21,8 @@ Antes de comenzar con este proyecto, asegúrate de tener lo siguiente instalado 
     ```sh
     git clone https://github.com/helmerhdez/university-python-projects.git
     
+    cd university-python-projects
+
     cd metodos-numericos
     ```
 
@@ -35,6 +37,7 @@ Antes de comenzar con este proyecto, asegúrate de tener lo siguiente instalado 
 
     ```sh
     pip install -r requirements.txt
+    python.exe -m pip install --upgrade pip
     ```
 
 4. **Configura la Aplicación:** Asegúrate de configurar la aplicación según tus necesidades en el archivo `app/__init__.py`, incluyendo las configuraciones y extensiones que puedas necesitar.
