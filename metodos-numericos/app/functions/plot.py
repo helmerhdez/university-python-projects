@@ -3,8 +3,8 @@ import numpy as np
 from io import BytesIO
 import base64
 
-def create_plot(a, b, func, function_expression):
-    x_vals = np.linspace(a, b, 400)
+def create_plot(a, b, func, function_expression, root):
+    x_vals = np.linspace(a, b, 200)
     vectorized_func = np.vectorize(func)
     y_vals = vectorized_func(x_vals)
 
@@ -13,7 +13,7 @@ def create_plot(a, b, func, function_expression):
     plt.plot(x_vals, y_vals, label=function_expression)
     plt.axhline(y=0, color='black', linewidth=0.8, linestyle='--')
 
-    plt.plot(2.0, func(2.0), 'ro', label=f"Raíz aproximada: {2.0}")
+    plt.plot(root, func(root), 'ro', label=f"Raíz aproximada: {root}")
         
     plt.title("Gráfica de la función y su raíz")
     plt.xlabel("x")

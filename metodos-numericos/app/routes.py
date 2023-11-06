@@ -1,12 +1,16 @@
 from flask import Blueprint, render_template, redirect, url_for
 from flask import request
-from app.functions.solve_equations import solve_equation
+from app.functions.solve import solve_non_linear_equation, solve_derivatives
 
 main_routes = Blueprint('main_routes', __name__)
 
 @main_routes.route('/')
 def index():
-    return redirect(url_for('main_routes.nonlinear_equation'))
+    return redirect(url_for('main_routes.home'))
+
+@main_routes.route('/home')
+def home():
+    return render_template('home.html')
 
 @main_routes.route('/nonlinear_equation')
 def nonlinear_equation():
@@ -18,6 +22,15 @@ def about():
 
 @main_routes.route('/nonlinear_equation', methods=['POST'])
 def nonlinear_equations():
-    result = solve_equation(request.form)
+    result = solve_non_linear_equation(request.form)
     return render_template('nonlinear_equation.html', result=result)
+
+@main_routes.route('/derivatives')
+def derivatives():
+    return render_template('derivatives.html')
+
+@main_routes.route('/derivatives-two-points', methods=['POST'])
+def derivatives_two_points():
+    result = solve_derivatives(request.form)
+    return render_template('derivatives.html', result=result)
 

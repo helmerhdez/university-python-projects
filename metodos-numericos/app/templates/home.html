@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="w-full h-screen flex items-center justify-center">
+    <div class="dark:bg-stone-950 dark:border-stone-950 rounded-lg shadow-lg p-8 space-y-4">
+        <h1 class="text-3xl text-white font-bold text-center">¿Que desea calcular?</h1>
+        <div class="flex justify-center space-x-4">
+            <a href="{{ url_for('main_routes.nonlinear_equation') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Ecuaciones lineales
+            </a>
+            <a href="{{ url_for('main_routes.derivatives') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                Derivadas
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
