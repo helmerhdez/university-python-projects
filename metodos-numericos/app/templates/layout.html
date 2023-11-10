@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
 </head>
 <body>
@@ -13,6 +16,38 @@
 
     <main class="px-5 py-3">
         {% block content %}{% endblock %}
+
+        <div id="alert" class="bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0 hidden">
+            <div class="dark:bg-stone-950 dark:border-stone-950 px-16 py-14 rounded-md text-center">
+              <h1 id="alertText" class="text-xl mb-4 font-bold text-white">Do you Want Delete</h1>
+              <button id="buttonClose" class="px-7 py-2 ml-2 inline-flex text-center items-center justify-center rounded-md shadow text-gray-700 dark:text-gray-400 dark:border-gray-800 border border-gray-200 leading-none"  onclick="closeAlert()">Aceptar</button>
+            </div>
+          </div>
     </main>
+
+    <script>
+        function showAlert(message) {
+            document.getElementById('alertText').innerHTML = message;
+            document.getElementById('alert').classList.remove('hidden');
+        }
+        
+        function closeAlert() {
+            document.getElementById('alertText').textContent = '';
+            document.getElementById('alert').classList.add('hidden');
+        }
+        
+        function validateForm(form) {
+            event.preventDefault();
+            var fields = form.getElementsByTagName('input');
+            for (var i = 0; i < fields.length; i++) {
+                var field = fields[i];
+                if (field.value === '') {
+                    showAlert(`Por favor, complete el campo <strong>${field.name}</strong> antes de enviar el formulario.`);
+                return;
+            }
+        }
+            form.submit();
+        }
+    </script>
 </body>
 </html>

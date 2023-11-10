@@ -4,7 +4,10 @@ from io import BytesIO
 import base64
 
 def create_plot(a, b, func, function_expression, root):
-    x_vals = np.linspace(a, b, 200)
+    if a is None or b is None:
+        x_vals = np.linspace(root - 2, root + 2, 200)
+    else:
+        x_vals = np.linspace(a, b, 200)
     vectorized_func = np.vectorize(func)
     y_vals = vectorized_func(x_vals)
 

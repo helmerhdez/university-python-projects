@@ -4,8 +4,8 @@ from app.functions.plot import create_plot
 from app.functions.methods.bisection_method import bisection_method
 from app.functions.methods.false_rule import false_rule_method
 from app.functions.create_function import create_function
-from app.functions.methods.derivatives import two_points
-from math import *
+from app.functions.methods.derivatives import *
+from app.utils.convert_to_latex import convert_to_latex
 
 
 def solve_non_linear_equation(form):
@@ -19,11 +19,11 @@ def solve_non_linear_equation(form):
     if form.get("method") == "1":
         root, iter_count = bisection_method(func, a, b, tol)
         plot_data = create_plot(a, b, func, func_str, root)
-        solution = NonLinearEquations(func_str, root, iter_count, plot_data)
+        solution = NonLinearEquations(convert_to_latex(func_str), root, iter_count, plot_data)
     if form.get("method") == "2":
         root, iter_count = false_rule_method(func, a, b, tol)
         plot_data = create_plot(a, b, func, func_str, root)
-        solution = NonLinearEquations(func_str, root, iter_count, plot_data)
+        solution = NonLinearEquations(convert_to_latex(func_str), root, iter_count, plot_data)
     return solution
 
 def solve_derivatives(form):
@@ -35,6 +35,18 @@ def solve_derivatives(form):
     root = 0
     if form.get("method") == "1":
         root, iter_count = two_points(func, x, tol)
-        plot_data = create_plot(0,3, func, func_str, root)
-        solution = DerivativesResponse(func_str, root, iter_count, plot_data)
+        plot_data = create_plot(None, None, func, func_str, root)
+        solution = DerivativesResponse(convert_to_latex(func_str), root, iter_count, plot_data)
+    if form.get("method") == "2":
+        root, iter_count = three_points_forward_difference(func, x, tol)
+        plot_data = create_plot(None,None, func, func_str, root)
+        solution = DerivativesResponse(convert_to_latex(func_str), root, iter_count, plot_data)
+    if form.get("method") == "3":
+        root, iter_count = three_points_backward_difference(func, x, tol)
+        plot_data = create_plot(None,None, func, func_str, root)
+        solution = DerivativesResponse(convert_to_latex(func_str), root, iter_count, plot_data)
+    if form.get("method") == "4":
+        root, iter_count = three_points_centered_difference(func, x, tol)
+        plot_data = create_plot(None,None, func, func_str, root)
+        solution = DerivativesResponse(convert_to_latex(func_str), root, iter_count, plot_data)
     return solution

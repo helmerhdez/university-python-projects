@@ -3,7 +3,7 @@
 {% block content %}
     <section class="border rounded-md border-gray-200 p-5 dark:border-gray-800 text-gray-600 dark:text-gray-100 text-sm">
         <h2 class="text-lg font-semibold uppercase">Solución Numérica de Ecuaciones No Lineales</h2>
-        <form method="POST" action="{{ url_for('main_routes.nonlinear_equations') }}">
+        <form method="POST" id="non_linear_equations" action="{{ url_for('main_routes.nonlinear_equations') }}">
             <div class="grid grid-cols-[3fr_repeat(5,_1fr)] gap-2 w-full mt-3 mb-1">
                 <input type="text" name="equation" id="equation" placeholder="Ingrese la ecuación" class="inline-block py-1 px-2 items-center shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-black dark:border-gray-800 text-gray-700 dark:text-gray-400 hidden">
                 <input type="number" name="a" id="a" placeholder="Ingrese A:" class="inline-block py-1 px-2 shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-black dark:border-gray-800 text-gray-700 dark:text-gray-400 hidden">
@@ -13,7 +13,6 @@
                     <option selected value="0">Selecione el método a usar...</option>
                     <option value="1">Bisección</option>
                     <option value="2">Regla falsa</option>
-                    <option value="3">3</option>
                   </select>
                 <button id="buttonSend" class="inline-flex text-center items-center justify-center py-1 rounded-md shadow text-gray-700 dark:text-gray-400 dark:border-gray-800 border border-gray-200 leading-none hidden">Calcular</button>
             </div>
@@ -24,9 +23,9 @@
         <div class="bg-stone-950 p-3">
             <h4 class="text-sm font-semibold uppercase text-center mb-2">Solución</h4>
             {% if result %}
-            <p>Función: {{result.func_str}}</p>
-            <p>Aproximación de la raíz: {{result.y_root}}</p>
-            <p>Nro repeticiones: {{result.iter_count}}</p>
+            <p>Función: {{result.func_str[0] if result.func_str else None}}</p>
+            <p>Aproximación de la raíz: {{result.y_root[0] if result.y_root else None}}</p>
+            <p>Nro repeticiones: {{result.iter_count[0] if result.iter_count else None}}</p>
             {% endif %}
         </div>
         <div class="border rounded border-gray-200 dark:border-gray-800 p-3">
@@ -57,9 +56,7 @@
                 bInput.classList.remove('hidden');
                 tolInput.classList.remove('hidden');
                 textInfo.classList.remove('hidden');
-            } else if (selectedMethod === '3') {
-                tolInput.classList.remove('hidden');
-            } else if (selectedMethod === '0') {
+            }else {
                 equation.classList.add('hidden');
                 buttonSend.classList.add("hidden")
                 aInput.classList.add('hidden');
@@ -67,6 +64,10 @@
                 tolInput.classList.add('hidden');
                 textInfo.classList.add('hidden');
             }
+        });
+
+        document.getElementById('non_linear_equations').addEventListener('submit', function(event) {
+            validateForm(this);
         });
     </script>
 {% endblock %}

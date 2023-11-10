@@ -3,7 +3,7 @@
 {% block content %}
     <section class="border rounded-md border-gray-200 p-5 dark:border-gray-800 text-gray-600 dark:text-gray-100 text-sm">
         <h2 class="text-lg font-semibold uppercase">Solución Numérica de Derivadas</h2>
-        <form method="POST" action="{{ url_for('main_routes.derivatives_two_points') }}">
+        <form method="POST" id="derivatives_form" action="{{ url_for('main_routes.derivatives_two_points') }}">
             <div class="grid grid-cols-[3fr_repeat(5,_1fr)] gap-2 w-full mt-3 mb-1">
                 <select name="method" id="method" class="py-1 px-2 shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-transparent dark:border-gray-800 text-gray-700 dark:text-gray-400">
                     <option selected value="0">Selecione el método a usar...</option>
@@ -29,9 +29,10 @@
         <div class="bg-stone-950 p-3">
             <h4 class="text-sm font-semibold uppercase text-center mb-2">Solución</h4>
             {% if result %}
-            <p>Función: {{result.func_str}}</p>
-            <p>Resultado: {{result.x}}</p>
-            <p>Nro repeticiones: {{result.iter_count}}</p>
+                <div>Función: {{ result.func_str[0] if result.func_str else None }}</div>
+                <p>Resultado: {{ result.x[0] if result.x else None }}</p>
+                </br>
+                <p>Nro repeticiones: {{ result.iter_count[0] if result.iter_count else None }}</p>
             {% endif %}
         </div>
         <div class="border rounded border-gray-200 dark:border-gray-800 p-3">
@@ -53,27 +54,17 @@
 
         document.getElementById('method').addEventListener('change', function () {
             let selectedMethod = this.value;
-
             if (selectedMethod != undefined || selectedMethod != null ) buttonSend.classList.remove('hidden')
-            
             equation.classList.remove('hidden');
+            xInput.classList.remove('hidden');
+            tolInput.classList.remove('hidden');
+            textInfo.classList.remove('hidden');
+            xInfo.classList.remove('hidden');
+            tolInfo.classList.remove('hidden');
+        });
 
-            if (selectedMethod === '1' || selectedMethod === '2') {
-                xInput.classList.remove('hidden');
-                tolInput.classList.remove('hidden');
-                textInfo.classList.remove('hidden');
-                xInfo.classList.remove('hidden');
-                tolInfo.classList.remove('hidden');
-            } else if (selectedMethod === '3') {
-                tolInput.classList.remove('hidden');
-            } else if (selectedMethod === '0') {
-                equation.classList.add('hidden');
-                buttonSend.classList.add("hidden")
-                aInput.classList.add('hidden');
-                bInput.classList.add('hidden');
-                tolInput.classList.add('hidden');
-                textInfo.classList.add('hidden');
-            }
+        document.getElementById('derivatives_form').addEventListener('submit', function(event) {
+            validateForm(this);
         });
     </script>
 {% endblock %}
