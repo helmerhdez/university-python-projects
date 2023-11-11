@@ -1,6 +1,9 @@
 from math import *
 def create_function(expression):
-    def func(x):
-        return eval(expression)
+    try:
+        def func(x):
+            return eval(expression)
 
-    return func
+        return func
+    except Exception as e:
+        return None, str(e)

@@ -1,17 +1,22 @@
 def false_rule_method(func, a, b, tol):
-    if func(a) * func(b) >= 0:
-        print("The function does not have a root in the interval")
-        return None
+    try:
+        if func(a) * func(b) >= 0:
+            raise ValueError("La función no cambia de signo en el intervalo dado.")
 
-    iter_count = 0
-    while (b - a) / 2 > tol:
-        c = a - func(a) * (b - a) / (func(b) - func(a))
-        if func(c) == 0:
-            break
-        elif func(c) * func(a) < 0:
-            b = c
-        else:
-            a = c
-        iter_count += 1
+        iterations = 0
+        while abs(b - a) > tol:
+            c = a - (func(a) * (b - a)) / (func(b) - func(a))
+            fc = func(c)
 
-    return c, iter_count
+            if abs(fc) < tol:
+                return c, iterations
+
+            if fc * func(a) < 0:
+                b = c
+            else:
+                a = c
+            iterations += 1
+
+        return (a + b) / 2, iterations
+    except Exception as e:
+        return None, str(e)

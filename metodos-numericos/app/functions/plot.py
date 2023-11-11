@@ -15,6 +15,7 @@ def create_plot(a, b, func, function_expression, root):
     plt.figure(figsize=(8, 6))
     plt.plot(x_vals, y_vals, label=function_expression)
     plt.axhline(y=0, color='black', linewidth=0.8, linestyle='--')
+    plt.axvline(x=0, color='red', linewidth=0.8, linestyle='--')
 
     plt.plot(root, func(root), 'ro', label=f"Raíz aproximada: {root}")
         

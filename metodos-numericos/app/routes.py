@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for
 from flask import request
-from app.functions.solve import solve_non_linear_equation, solve_derivatives
+from app.functions.solve import solve_non_linear_equation, solve_derivatives, solve_dif_number
 
 main_routes = Blueprint('main_routes', __name__)
 
@@ -33,4 +33,13 @@ def derivatives():
 def derivatives_two_points():
     result = solve_derivatives(request.form)
     return render_template('derivatives.html', result=result)
+
+@main_routes.route('/dif_number')
+def dif_number():
+    return render_template('dif_number.html')
+
+@main_routes.route('/dif_number', methods=['POST'])
+def dif_numbers():
+    result = solve_dif_number(request.form)
+    return render_template('dif_number.html', result=result)
 

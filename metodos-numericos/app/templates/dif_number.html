@@ -2,19 +2,18 @@
 
 {% block content %}
     <section class="border rounded-md border-gray-200 p-5 dark:border-gray-800 text-gray-600 dark:text-gray-100 text-sm">
-        <h2 class="text-lg font-semibold uppercase">Solución Numérica de Ecuaciones No Lineales</h2>
-        <form method="POST" id="non_linear_equations" action="{{ url_for('main_routes.nonlinear_equations') }}">
+        <h2 class="text-lg font-semibold uppercase">Diferenciación Numerica</h2>
+        <form method="POST" id="dif_number_form" action="{{ url_for('main_routes.dif_number') }}">
             <div class="grid grid-cols-[3fr_repeat(5,_1fr)] gap-2 w-full mt-3 mb-1">
                 <input type="text" name="equation" id="equation" placeholder="Ingrese la ecuación" class="inline-block py-1 px-2 items-center shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-black dark:border-gray-800 text-gray-700 dark:text-gray-400 hidden">
-                <input type="number" name="a" id="a" placeholder="Ingrese A:" class="inline-block py-1 px-2 shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-black dark:border-gray-800 text-gray-700 dark:text-gray-400 hidden">
-                <input type="number" name="b" id="b" placeholder="Ingrese B:" class="inline-block py-1 px-2 shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-black dark:border-gray-800 text-gray-700 dark:text-gray-400 hidden">
-                <input type="text" name="tol" id="tol" placeholder="Ingrese TOL:" class="inline-block py-1 px-2 shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-black dark:border-gray-800 text-gray-700 dark:text-gray-400 hidden">
+                <input type="text" name="a" id="a" placeholder="Ingrese A:" class="inline-block py-1 px-2 shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-black dark:border-gray-800 text-gray-700 dark:text-gray-400 hidden">
+                <input type="text" name="b" id="b" placeholder="Ingrese B:" class="inline-block py-1 px-2 shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-black dark:border-gray-800 text-gray-700 dark:text-gray-400 hidden">
+                <input type="number" name="n" id="n" placeholder="Ingrese N:" class="inline-block py-1 px-2 shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-black dark:border-gray-800 text-gray-700 dark:text-gray-400 hidden">
                 <select name="method" id="method" class="py-1 px-2 shadow border border-gray-200 dark:border-gray-800 rounded-md focus:outline-none dark:bg-transparent dark:border-gray-800 text-gray-700 dark:text-gray-400">
                     <option selected value="0">Selecione el método a usar...</option>
-                    <option value="1">Bisección</option>
-                    <option value="2">Regla falsa</option>
-                    <option value="3">Newton</option>
-                    <option value="4">Secante</option>
+                    <option value="1">Integración</option>
+                    <option value="2">Regla de simpson</option>
+                    <option value="3">Simpson 3-8</option>
                   </select>
                 <button id="buttonSend" class="inline-flex text-center items-center justify-center py-1 rounded-md shadow text-gray-700 dark:text-gray-400 dark:border-gray-800 border border-gray-200 leading-none hidden">Calcular</button>
             </div>
@@ -26,7 +25,7 @@
             <h4 class="text-sm font-semibold uppercase text-center mb-2">Solución</h4>
             {% if result %}
             <p>Función: {{result.func_str[0] if result.func_str else None}}</p>
-            <p>Aproximación de la raíz: {{result.y_root[0] if result.y_root else None}}</p>
+            <p>Aproximación de la raíz: {{result.x[0] if result.x else None}}</p>
             <p>Nro repeticiones: {{result.iter_count[0] if result.iter_count else None}}</p>
             {% endif %}
         </div>
@@ -42,7 +41,7 @@
         let equation = document.getElementById('equation')
         let aInput = document.getElementById('a');
         let bInput = document.getElementById('b');
-        let tolInput = document.getElementById('tol');
+        let nInput = document.getElementById('n');
         let buttonSend = document.getElementById('buttonSend')
         let textInfo = document.getElementById('textInfo')
 
@@ -52,24 +51,13 @@
             if (selectedMethod != undefined || selectedMethod != null ) buttonSend.classList.remove('hidden')
             
             equation.classList.remove('hidden');
-
-            if (selectedMethod === '1' || selectedMethod === '2') {
-                aInput.classList.remove('hidden');
-                bInput.classList.remove('hidden');
-                tolInput.classList.remove('hidden');
-                textInfo.classList.remove('hidden');
-            } else if (selectedMethod === '3' || selectedMethod === '4') {
-                equation.classList.remove('hidden');
-                buttonSend.classList.remove("hidden")
-                aInput.classList.remove('hidden');
-                bInput.remove()
-                aInput.ariaPlaceholder = ""
-                tolInput.classList.remove('hidden');
-                textInfo.classList.remove('hidden');
-            }
+            aInput.classList.remove('hidden');
+            bInput.classList.remove('hidden');
+            nInput.classList.remove('hidden');
+            textInfo.classList.remove('hidden');
         });
 
-        document.getElementById('non_linear_equations').addEventListener('submit', function(event) {
+        document.getElementById('dif_number_form').addEventListener('submit', function(event) {
             validateForm(this);
         });
     </script>
